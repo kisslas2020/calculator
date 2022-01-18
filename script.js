@@ -19,7 +19,7 @@ operators.forEach(o => o.addEventListener('click', () => {
             num1 = displayValue;
         } else if (num1 != displayValue) {
             num1 = operate(op, num1, displayValue);
-            display.textContent = num1 === null ? 'error' : num1;
+            display.textContent = num1 === null ? 'error' : num1.toFixed(2);
         }
         op = o.textContent;
         displayValue = '';
@@ -34,7 +34,7 @@ equalsButton.addEventListener('click', () => {
             num1 = 0;
         }
         num1 = operate(op, num1, num2);
-        display.textContent = num1 === null ? 'error' : num1;
+        display.textContent = num1 === null ? 'error' : num1.toFixed(2);
     }
 });
 
