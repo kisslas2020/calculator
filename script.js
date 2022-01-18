@@ -6,7 +6,7 @@ let displayValue = '';
 const display = document.querySelector('.display');
 const numbers = document.querySelectorAll('.numbers button');
 numbers.forEach(n => n.addEventListener('click', () => {
-    if (displayValue != 'error') {
+    if (display.textContent != 'error') {
         displayValue += n.textContent;
         display.textContent = displayValue;
     }
@@ -14,29 +14,27 @@ numbers.forEach(n => n.addEventListener('click', () => {
 
 const operators = document.querySelectorAll('.operators button');
 operators.forEach(o => o.addEventListener('click', () => {
-    if (displayValue != 'error') {
+    if (display.textContent != 'error') {
         if (num1 === null) {
             num1 = displayValue;
-            displayValue = '';
         } else if (num1 != displayValue) {
             num1 = operate(op, num1, displayValue);
-            displayValue = num1 === null ? 'error' : num1;
-            display.textContent = displayValue;
+            display.textContent = num1 === null ? 'error' : num1;
         }
         op = o.textContent;
+        displayValue = '';
     }
 }));
 
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
-    if (displayValue != 'error') {
+    if (display.textContent != 'error') {
         num2 = displayValue;
         if (num1 === null || num1 === '') {
             num1 = 0;
         }
         num1 = operate(op, num1, num2);
-        displayValue = num1 === null ? 'error' : num1;
-        display.textContent = displayValue;
+        display.textContent = num1 === null ? 'error' : num1;
     }
 });
 
