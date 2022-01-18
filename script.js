@@ -14,6 +14,7 @@ numbers.forEach(n => n.addEventListener('click', () => {
 
 const operators = document.querySelectorAll('.operators button');
 operators.forEach(o => o.addEventListener('click', () => {
+    console.log({num1});
     if (display.textContent != 'error') {
         if (num1 === null) {
             num1 = displayValue;
@@ -29,12 +30,19 @@ operators.forEach(o => o.addEventListener('click', () => {
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
     if (display.textContent != 'error') {
-        num2 = displayValue;
-        if (num1 === null || num1 === '') {
-            num1 = 0;
+        if (op === null) {
+            num1 = displayValue;
+        } else {
+            num2 = displayValue;
+            if (num1 === null || num1 === '') {
+                num1 = 0;
+            }
+            if (num2 === null || num2 === '') {
+                num2 = 0;
+            }
+            num1 = operate(op, num1, num2);
+            display.textContent = num1 === null ? 'error' : num1.toFixed(2);
         }
-        num1 = operate(op, num1, num2);
-        display.textContent = num1 === null ? 'error' : num1.toFixed(2);
     }
 });
 
@@ -48,6 +56,9 @@ clearButton.addEventListener('click', () => {
 })
 
 function operate(operator, n1, n2) {
+    console.log(n1);
+    console.log(n2);
+    console.log(operator);
     switch(operator) {
         case '+':
             return add(n1, n2);
