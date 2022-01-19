@@ -1,59 +1,50 @@
 let op = null;
 let num1 = null;
-let num2 = null;
+let res = 0;
 let displayValue = '';
 
-const display = document.querySelector('.display');
+const input = document.querySelector('.display.input');
+const result = document.querySelector('.display.result');
 const numbers = document.querySelectorAll('.numbers button');
-numbers.forEach(n => n.addEventListener('click', () => {
-    if (display.textContent != 'error') {
-        displayValue += n.textContent;
-        display.textContent = displayValue;
-    }
-}));
+numbers.forEach(n => n.addEventListener('click', numClick));
 
 const operators = document.querySelectorAll('.operators button');
-operators.forEach(o => o.addEventListener('click', () => {
-    console.log({num1});
-    if (display.textContent != 'error') {
-        if (num1 === null) {
-            num1 = displayValue;
-        } else if (num1 != displayValue) {
-            num1 = operate(op, num1, displayValue);
-            display.textContent = num1 === null ? 'error' : num1.toFixed(2);
-        }
-        op = o.textContent;
-        displayValue = '';
-    }
-}));
+operators.forEach(o => o.addEventListener('click', opClick));
 
 const equalsButton = document.querySelector('#equals');
-equalsButton.addEventListener('click', () => {
-    if (display.textContent != 'error') {
-        if (op === null) {
-            num1 = displayValue;
-        } else {
-            num2 = displayValue;
-            if (num1 === null || num1 === '') {
-                num1 = 0;
-            }
-            if (num2 === null || num2 === '') {
-                num2 = 0;
-            }
-            num1 = operate(op, num1, num2);
-            display.textContent = num1 === null ? 'error' : num1.toFixed(2);
-        }
-    }
-});
+equalsButton.addEventListener('click', eqClick);
 
 const clearButton = document.querySelector('#clear');
-clearButton.addEventListener('click', () => {
-    op = null;
+clearButton.addEventListener('click', clearClick);
+
+function numClick() {
+    if (input.textContent != 'error') {
+        displayValue += this.textContent;
+        input.textContent = displayValue;
+    }
+}
+
+function opClick() {
+    if (input.textContent != 'error') {
+        num1 = displayValue;
+        op = this.textContent;
+        displayValue = '';
+    }
+}
+
+function eqClick() {
+    if (input.textContent != 'error') {
+        num1 = operate(op, num1, displayValue);
+    }
+}
+
+function clearClick() {
     num1 = null;
-    num2 = null;
+    op = null;
+    res = 0;
     displayValue = '';
-    display.textContent = '0';
-})
+    input.textContent = 0;
+}
 
 function operate(operator, n1, n2) {
     console.log(n1);
