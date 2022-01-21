@@ -1,3 +1,125 @@
-.display {
-    height: 50px;
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+.calculator {
+    display: flex;
+    gap: 5px;
+    border: 1px solid red;
+    width: 50vw;
+    max-width: 500px;
+    margin: 30vh 10vw;
 }
+
+.logs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex: 1;
+    padding-right: 5px;
+    border: 1px solid blue;
+}
+
+.logs p {
+    border: 1px double goldenrod;
+}
+
+.log-row, .log-display {
+    display: flex;
+    width: 100%;
+    border: 1px solid greenyellow;
+    justify-content: space-between;
+}
+
+.keypad {
+    display: flex;
+    flex-direction: column-reverse;
+    flex: 1;
+    border: 1px solid blue;
+    gap: 5px;
+    height: 50vh;
+    max-height: 300px;
+}
+
+.input-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    flex: 10 0 30px;
+    border: 1px solid green;
+    gap: 5px;
+}
+
+.clear-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex: 1 0 30px;
+    background-color: coral;
+    padding: 0px 5px;
+}
+
+.clear-buttons button {
+    flex: 1 0 60px;
+    align-self: center;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.operators {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    gap: 5px;
+    border: 1px dotted hotpink;
+}
+
+.numbers {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 3;
+    gap: 5px;
+    border: 1px dotted hotpink;
+}
+
+.pad {
+    flex: 1 1 calc(100% / 4);
+    height: calc(100% / 5);
+}
+
+.operators button {
+    flex: 1 1 calc(100%);
+    height: calc(100% / 5);
+}
+
+.numbers :nth-child(7) {
+    order: -2;
+}
+
+.numbers :nth-child(8) {
+    order: -2;
+}
+
+.numbers :nth-child(9) {
+    order: -2;
+}
+
+.numbers :nth-child(4) {
+    order: -1;
+}
+
+.numbers :nth-child(5) {
+    order: -1;
+}
+
+.numbers :nth-child(6) {
+    order: -1;
+}
+

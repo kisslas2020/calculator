@@ -6,7 +6,7 @@ let oper = null;
 const input = document.querySelector('.display.input');
 const result = document.querySelector('.display.result');
 
-const numbers = document.querySelectorAll('.numbers button');
+const numbers = document.querySelectorAll('.number');
 numbers.forEach(n => n.addEventListener('click', (e) => numClick(e.target.textContent)));
 
 const operators = document.querySelectorAll('.operators button');
@@ -81,7 +81,7 @@ function clearClick() {
     displayValue = '';
     oper = null;
     n = '';
-    input.textContent = '';
+    input.textContent = 0;
     result.textContent = 0;
 }
 
