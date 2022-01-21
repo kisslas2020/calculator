@@ -90,7 +90,6 @@ function calculateResult() {
     let num = null;
     let op = null;
     displayArray.push(displayValue);
-    console.log({displayArray});
     for (let item of displayArray) {
         if (isNumber(item)) {
             if (num === null) {
@@ -107,7 +106,6 @@ function calculateResult() {
         }
     }
     displayArray.pop();
-    console.log({res});
     result.textContent = res;
 }
 
