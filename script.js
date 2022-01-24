@@ -2,8 +2,13 @@ let displayValue = '';
 let displayArray = [];
 let n = '';
 let oper = null;
+let newLine;
+let inputNumber;
+let inputOperator;
 
-const input = document.querySelector('.display.input');
+const input = document.querySelector('.log-display');
+createNewRow();
+
 const result = document.querySelector('.display.result');
 
 const numbers = document.querySelectorAll('.number');
@@ -21,9 +26,32 @@ backspaceButton.addEventListener('click', bsClick);
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clearClick);
 
+function createNewRow() {
+    inputOperator = document.createElement('p');
+    inputOperator.classList.add('log-op');
+    inputNumber = document.createElement('p');
+    inputNumber.classList.add('log-num');
+    input.lastChild.after(inputOperator);
+    input.lastChild.after(inputNumber);
+}
+
 function display(str) {
-    displayValue += str;
-    input.textContent = displayValue;
+    
+    if (isNumber(str)) {
+        displayValue += str;
+        inputNumber.textContent = displayValue;
+    } else if (str === '=') {
+        displayValue = str;
+        createNewRow();
+        inputOperator.textContent = displayValue;
+        inputNumber.textContent = calculateResult();
+    } else {
+        displayValue = str;
+        if (inputNumber.textContent != '') {
+            createNewRow();
+        }
+        inputOperator.textContent = displayValue;
+    }
     calculateResult();
 }
 
@@ -48,7 +76,7 @@ function opClick(sign) {
     if (displayValue === '=') {
         displayArray.push(result.textContent);
     }
-    
+
     displayValue = '';
     n = '';
     display(oper);
@@ -72,7 +100,7 @@ function bsClick() {
         displayValue = displayArray.length === 0 ? '' : displayArray.pop();
     }
     n = displayValue;
-    input.textContent = displayValue;
+    inputNumber.textContent = displayValue;
     calculateResult();
 }
 
@@ -81,7 +109,8 @@ function clearClick() {
     displayValue = '';
     oper = null;
     n = '';
-    input.textContent = 0;
+    input.querySelectorAll('p').forEach(p => input.removeChild(p));
+    createNewRow()
     result.textContent = 0;
 }
 
@@ -107,6 +136,7 @@ function calculateResult() {
     }
     displayArray.pop();
     result.textContent = res;
+    return res;
 }
 
 function operate(operator, n1, n2) {

@@ -28,11 +28,21 @@ html {
     border: 1px double goldenrod;
 }
 
-.log-row, .log-display {
+.log-display {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     border: 1px solid greenyellow;
     justify-content: space-between;
+}
+
+.log-op {
+    width: 10%;
+}
+
+.log-num {
+    width: 90%;
+    text-align: right;
 }
 
 .keypad {
