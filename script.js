@@ -2,9 +2,9 @@ let displayValue = '';
 let displayArray = [];
 let n = '';
 let oper = null;
-let newLine;
 let inputNumber;
 let inputOperator;
+let error = false;
 
 document.addEventListener('keydown', (e) => {
     let key = e.key;
@@ -51,7 +51,7 @@ numbers.forEach(n => n.addEventListener('click', (e) => numClick(e.target.textCo
 const operators = document.querySelectorAll('.operators button');
 operators.forEach(o => o.addEventListener('click', (e) => opClick(e.target.textContent)));
 
-const equalsButton = document.querySelector('#equals');
+const equalsButton = document.querySelector('.equals');
 equalsButton.addEventListener('click', eqClick);
 
 const backspaceButton = document.querySelector('#backspace');
@@ -91,7 +91,7 @@ function display(str) {
 }
 
 function numClick(digit) {
-    if (digit === '.' && n.includes('.') || displayValue === '=') {
+    if (digit === '.' && n.includes('.') || displayValue === '=' || error) {
         return;
     }
     if (oper != null) {
@@ -105,6 +105,9 @@ function numClick(digit) {
 }
 
 function opClick(sign) {
+    if (error) {
+        return;
+    }
     oper = sign;
     displayValue = displayValue === '' ? '0' : displayValue;
     displayArray.push(displayValue);
@@ -118,10 +121,16 @@ function opClick(sign) {
 }
 
 function eqClick() {
-    if (isNumber(displayValue)) {
-        displayArray.push(displayValue);
+    if (error) {
+        return;
     }
-    displayValue = '';
+    displayArray.push(displayValue);
+    if (isNumber(displayValue)) {
+        displayValue = '';
+    } else {
+        removeLine();
+    }
+    
     display('=');
     calculateResult();
 }
@@ -140,7 +149,6 @@ function bsClick() {
         displayArray.pop();
         removeLine();
     }
-    console.log({displayArray});
     calculateResult();
 
 }
@@ -175,6 +183,10 @@ function calculateResult() {
                 num = item;
             } else if (op != '='){
                 res = operate(op, num, item);
+                if (res === null) {
+                    error = true;
+                    res = 'error'
+                }
                 num = res;
             }
         } else {
@@ -185,6 +197,7 @@ function calculateResult() {
         }
     }
     displayArray.pop();
+    console.log({displayArray});
     result.textContent = res;
     return res;
 }
