@@ -6,6 +6,40 @@ let newLine;
 let inputNumber;
 let inputOperator;
 
+document.addEventListener('keydown', (e) => {
+    let key = e.key;
+    switch(key) {
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '0':
+        case '.':
+            numClick(key);
+            break;
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            opClick(key);
+            break;
+        case '=':
+        case 'Enter':
+            eqClick();
+            break;
+        case 'Backspace':
+            bsClick();
+            break;
+        case 'Delete':
+            clearClick();
+    }
+})
+
 const input = document.querySelector('.log-display');
 createNewRow();
 
@@ -33,11 +67,12 @@ function createNewRow() {
     inputNumber.classList.add('log-num');
     input.lastChild.after(inputOperator);
     input.lastChild.after(inputNumber);
+    inputNumber.scrollIntoView();
 }
 
 function display(str) {
     
-    if (isNumber(str)) {
+    if (isNumber(str) || str === '.') {
         displayValue += str;
         inputNumber.textContent = displayValue;
     } else if (str === '=') {
@@ -95,13 +130,28 @@ function bsClick() {
     if (displayValue.length === 0 && displayArray.length === 0) {
         return;
     }
-    displayValue = displayValue.slice(0, displayValue.length - 1);
-    if (displayValue.length === 0) {
-        displayValue = displayArray.length === 0 ? '' : displayArray.pop();
+    if (inputOperator.textContent === '=') {
+        removeLine();
+    } else if(isNumber(displayValue)) {
+        displayValue = displayValue.slice(0, displayValue.length - 1);
+        n = displayValue;
+        inputNumber.textContent = displayValue;
+    } else {
+        displayArray.pop();
+        removeLine();
     }
-    n = displayValue;
-    inputNumber.textContent = displayValue;
+    console.log({displayArray});
     calculateResult();
+
+}
+
+function removeLine() {
+    input.removeChild(inputOperator);
+    input.removeChild(inputNumber);
+    inputNumber = input.lastChild;
+    inputOperator = inputNumber.previousSibling;
+    displayArray.pop();
+    displayValue = inputNumber.textContent;
 }
 
 function clearClick() {
@@ -110,7 +160,7 @@ function clearClick() {
     oper = null;
     n = '';
     input.querySelectorAll('p').forEach(p => input.removeChild(p));
-    createNewRow()
+    createNewRow();
     result.textContent = 0;
 }
 
