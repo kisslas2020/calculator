@@ -182,7 +182,7 @@ function calculateResult() {
             if (num === null) {
                 num = item;
             } else if (op != '='){
-                res = operate(op, num, item);
+                res = +operate(op, num, item).toFixed(15);
                 if (res === null) {
                     error = true;
                     res = 'error'
