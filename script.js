@@ -183,7 +183,6 @@ function calculateResult() {
                 num = item;
             } else if (op != '='){
                 res = operate(op, num, item);
-                console.log(res);
                 res = res === null ? null : +res.toFixed(10);
                 if (res === null) {
                     error = true;
