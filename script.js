@@ -182,7 +182,9 @@ function calculateResult() {
             if (num === null) {
                 num = item;
             } else if (op != '='){
-                res = +operate(op, num, item).toFixed(15);
+                res = operate(op, num, item);
+                console.log(res);
+                res = res === null ? null : +res.toFixed(10);
                 if (res === null) {
                     error = true;
                     res = 'error'
@@ -197,7 +199,6 @@ function calculateResult() {
         }
     }
     displayArray.pop();
-    console.log({displayArray});
     result.textContent = res;
     return res;
 }
